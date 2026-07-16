@@ -1,1 +1,3 @@
-# Scenarios\n\nSite configs, load profiles, and stress/shift scenarios go here.
+# Scenarios
+
+Site configs, load profiles, and stress/shift scenarios go here.
