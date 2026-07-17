@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "scenario_id": "alcf_toy_v0",
+    "tenant": "alcf",
+    "T": 24,
+    "dt_hours": 1.0,
+    "seed": 42
+  },
+  "facility": {
+    "baseline_it_load_kw": [280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5, 280.5],
+    "p_cap_kw": 400.0,
+    "sla_floor_kw": [220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0, 220.0],
+    "t_max_inlet_c": 28.0,
+    "price_usd_per_kwh": [0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08],
+    "carbon_kg_per_kwh": [0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386, 0.386],
+    "stranded_denominator_kwh": null,
+    "levers": {
+      "c": {"min": 5.0, "max": 12.0, "delta_max": 1.5, "ref": 7.0},
+      "u": {"min": 30.0, "max": 100.0, "delta_max": 20.0},
+      "s": {"min": 18.0, "max": 27.0, "delta_max": 1.0},
+      "q": {"min": 60.0, "max": 100.0, "delta_max": 10.0},
+      "ramp_kw": 50.0
+    },
+    "surrogates": {
+      "cooling_overhead": {"beta0": 20.0, "beta1": 0.15, "beta2": 1.0, "beta3": 10.0, "c_ref": 7.0},
+      "inlet_temp": {"a0": 18.0, "a1": 0.03, "a2": 2.0},
+      "cooling_effort": {"kappa0": 1.0, "kappa_c": 0.15, "kappa_u": 1.0, "kappa_max": 5.0, "rho": 0.8}
+    },
+    "action_window": {
+      "hours": [2, 3, 4, 5],
+      "z_fixed": true,
+      "source_text": "Operational window: 02:00-06:00 local time (window text from ACME mock; adopted for the toy instance, ALCF mock has no window)"
+    },
+    "provenance": {
+      "tag": "mixed",
+      "source_text": "Maintain HPC job queue SLA; Do not exceed thermal redline (28C inlet)",
+      "notes": "baseline/price/carbon sourced from mock (it_load_kw 280.5; ratios of estimated_impact_24h); p_cap, sla_floor, all surrogate coefficients, lever bounds approximated"
+    }
+  },
+  "hosts": {
+    "resources": ["cpu", "mem", "power", "storage"],
+    "inventory": [
+      {"host_id": "h00", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}},
+      {"host_id": "h01", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}},
+      {"host_id": "h02", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}},
+      {"host_id": "h03", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}},
+      {"host_id": "h04", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}},
+      {"host_id": "h05", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}},
+      {"host_id": "h06", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}},
+      {"host_id": "h07", "rated_power_kw": 40.0, "rated": {"cpu": 64, "mem": 512, "power": 40.0, "storage": 20}}
+    ],
+    "initial_utilization": [
+      [0.55, 0.6, 0.8765625, 0.4],
+      [0.55, 0.6, 0.8765625, 0.4],
+      [0.55, 0.6, 0.8765625, 0.4],
+      [0.55, 0.6, 0.8765625, 0.4],
+      [0.55, 0.6, 0.8765625, 0.4],
+      [0.55, 0.6, 0.8765625, 0.4],
+      [0.55, 0.6, 0.8765625, 0.4],
+      [0.55, 0.6, 0.8765625, 0.4]
+    ],
+    "provenance": {
+      "tag": "approximated",
+      "notes": "PLACEHOLDER synthetic inventory (Q2, owner: James). 8x40kW so that sum h_pow*P_rated = 280.5 kW = baseline[0]. James: replace with your proposed inventory, keep the coupling identity."
+    }
+  },
+  "arrivals": {
+    "family": "none",
+    "provenance": {
+      "tag": "approximated",
+      "notes": "Toy instance: arrivals off, validates the certainty-equivalence claim (joint spec §5.4). Q3, owner: James — propose {family, rate_per_hour, demand} for stochastic runs."
+    }
+  }
+}

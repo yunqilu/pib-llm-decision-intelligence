@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://physaflow.example/di/schemas/observation-v0.2.json",
+  "title": "observation — returned by reset() and step()",
+  "type": "object",
+  "required": ["t", "facility", "hosts"],
+  "additionalProperties": false,
+  "properties": {
+    "t": {"type": "integer", "minimum": 0},
+    "facility": {
+      "type": "object",
+      "required": [
+        "it_load_kw", "facility_power_kw", "pue", "inlet_temp_c", "cooling_effort",
+        "levers", "admitted_kw", "budget_remaining_kw",
+        "price_usd_per_kwh", "carbon_kg_per_kwh", "in_window"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "it_load_kw": {"type": "number", "minimum": 0, "description": "L_t"},
+        "facility_power_kw": {"type": "number", "minimum": 0, "description": "F_t = L_t + C_t"},
+        "pue": {
+          "type": ["number", "null"],
+          "minimum": 1.0,
+          "description": "report-only, NOI-213: >= 1.0 or null ('not reported'); never 0.0"
+        },
+        "inlet_temp_c": {"type": "number", "description": "T^in_t, surrogate output [approximated]"},
+        "cooling_effort": {"type": "number", "description": "kappa_t [approximated]"},
+        "levers": {
+          "type": "object",
+          "required": ["chiller_setpoint_c", "pump_duty_pct", "zone_setpoint_c", "deferrable_share_pct"],
+          "additionalProperties": false,
+          "properties": {
+            "chiller_setpoint_c": {"type": "number"},
+            "pump_duty_pct": {"type": "number", "minimum": 0, "maximum": 100},
+            "zone_setpoint_c": {"type": "number"},
+            "deferrable_share_pct": {"type": "number", "minimum": 0, "maximum": 100}
+          }
+        },
+        "admitted_kw": {"type": "number", "minimum": 0, "description": "r_t admitted so far this step"},
+        "budget_remaining_kw": {"type": "number", "minimum": 0, "description": "r*_t - r_t: Layer A admission budget left for Layer B placements"},
+        "price_usd_per_kwh": {"type": "number", "minimum": 0},
+        "carbon_kg_per_kwh": {"type": "number", "minimum": 0},
+        "in_window": {"type": "boolean", "description": "z_t: migrations/lever moves allowed this step"}
+      }
+    },
+    "hosts": {
+      "type": ["object", "null"],
+      "description": "Layer B view; null for the facility-level optimizer (pure LP/MILP consumes scenario_config directly)",
+      "required": ["utilization", "queue"],
+      "additionalProperties": false,
+      "properties": {
+        "utilization": {
+          "type": "array",
+          "items": {"type": "array", "items": {"type": "number", "minimum": 0, "maximum": 1}},
+          "description": "H_t = h_{i,j}, shape [N][M]"
+        },
+        "queue": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["task_id", "demand", "sla_protected", "arrived_t"],
+            "additionalProperties": false,
+            "properties": {
+              "task_id": {"type": "string"},
+              "demand": {
+                "type": "object",
+                "additionalProperties": {"type": "number", "minimum": 0},
+                "description": "delta_k keyed by resource axis; power axis in kW"
+              },
+              "sla_protected": {"type": "boolean"},
+              "arrived_t": {"type": "integer", "minimum": 0}
+            }
+          },
+          "description": "Q_t: waiting tasks v_k"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://physaflow.example/di/schemas/action-v0.2.json",
+  "title": "action — input to step(); either or both layers' fields",
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 1,
+  "properties": {
+    "facility": {
+      "type": "object",
+      "description": "Layer A hourly setpoints; the 5 levers = the 5 mock Blackbox action targets, admit_kw (r_t) is the mission variable the mock lacks",
+      "required": [
+        "admit_kw", "curtail_kw", "chiller_setpoint_c",
+        "pump_duty_pct", "zone_setpoint_c", "deferrable_share_pct"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "admit_kw": {"type": "number", "minimum": 0, "description": "r_t"},
+        "curtail_kw": {"type": "number", "minimum": 0, "description": "d_t"},
+        "chiller_setpoint_c": {"type": "number", "description": "c_t"},
+        "pump_duty_pct": {"type": "number", "minimum": 0, "maximum": 100, "description": "u_t"},
+        "zone_setpoint_c": {"type": "number", "description": "s_t"},
+        "deferrable_share_pct": {"type": "number", "minimum": 0, "maximum": 100, "description": "q_t"}
+      }
+    },
+    "placements": {
+      "type": "array",
+      "description": "Layer B: put waiting task on host; total placed power <= observation.facility.budget_remaining_kw",
+      "items": {
+        "type": "object",
+        "required": ["task_id", "host_id"],
+        "additionalProperties": false,
+        "properties": {
+          "task_id": {"type": "string"},
+          "host_id": {"type": "string"}
+        }
+      }
+    },
+    "migrations": {
+      "type": "array",
+      "description": "Layer B: move running task between hosts; only legal when observation.facility.in_window",
+      "items": {
+        "type": "object",
+        "required": ["task_id", "from_host", "to_host"],
+        "additionalProperties": false,
+        "properties": {
+          "task_id": {"type": "string"},
+          "from_host": {"type": "string"},
+          "to_host": {"type": "string"}
+        }
+      }
+    }
+  }
+}

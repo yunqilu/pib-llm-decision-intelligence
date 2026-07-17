@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://physaflow.example/di/schemas/scenario_config-v0.2.json",
+  "title": "scenario_config — input to reset(); single source for both layers",
+  "type": "object",
+  "required": ["meta", "facility", "hosts", "arrivals"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["scenario_id", "tenant", "T", "dt_hours", "seed"],
+      "additionalProperties": false,
+      "properties": {
+        "scenario_id": {"type": "string", "minLength": 1},
+        "tenant": {"enum": ["alcf", "acme", "tenant-001", "tenant-002"]},
+        "T": {"type": "integer", "minimum": 1, "default": 24},
+        "dt_hours": {"type": "number", "exclusiveMinimum": 0, "default": 1.0},
+        "seed": {"type": "integer"}
+      }
+    },
+    "facility": {
+      "type": "object",
+      "required": [
+        "baseline_it_load_kw", "p_cap_kw", "sla_floor_kw", "t_max_inlet_c",
+        "price_usd_per_kwh", "carbon_kg_per_kwh", "stranded_denominator_kwh",
+        "levers", "surrogates", "action_window", "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "baseline_it_load_kw": {"$ref": "#/$defs/profile"},
+        "p_cap_kw": {"type": "number", "exclusiveMinimum": 0},
+        "sla_floor_kw": {"$ref": "#/$defs/profile"},
+        "t_max_inlet_c": {"type": "number"},
+        "price_usd_per_kwh": {"$ref": "#/$defs/profile"},
+        "carbon_kg_per_kwh": {"$ref": "#/$defs/profile"},
+        "stranded_denominator_kwh": {
+          "type": ["number", "null"],
+          "description": "D; null => benchmark harness computes it (both layers must use the same value)"
+        },
+        "levers": {
+          "type": "object",
+          "required": ["c", "u", "s", "q", "ramp_kw"],
+          "additionalProperties": false,
+          "properties": {
+            "c": {"$ref": "#/$defs/lever"},
+            "u": {"$ref": "#/$defs/lever"},
+            "s": {"$ref": "#/$defs/lever"},
+            "q": {"$ref": "#/$defs/lever"},
+            "ramp_kw": {"type": "number", "exclusiveMinimum": 0}
+          }
+        },
+        "surrogates": {
+          "type": "object",
+          "required": ["cooling_overhead", "inlet_temp", "cooling_effort"],
+          "additionalProperties": false,
+          "description": "All [approximated]; must be reported with every result.",
+          "properties": {
+            "cooling_overhead": {
+              "type": "object",
+              "required": ["beta0", "beta1", "beta2", "beta3", "c_ref"],
+              "additionalProperties": false,
+              "properties": {
+                "beta0": {"type": "number"}, "beta1": {"type": "number"},
+                "beta2": {"type": "number"}, "beta3": {"type": "number"},
+                "c_ref": {"type": "number"}
+              }
+            },
+            "inlet_temp": {
+              "type": "object",
+              "required": ["a0", "a1", "a2"],
+              "additionalProperties": false,
+              "properties": {
+                "a0": {"type": "number"}, "a1": {"type": "number"}, "a2": {"type": "number"}
+              }
+            },
+            "cooling_effort": {
+              "type": "object",
+              "required": ["kappa0", "kappa_c", "kappa_u", "kappa_max", "rho"],
+              "additionalProperties": false,
+              "properties": {
+                "kappa0": {"type": "number"}, "kappa_c": {"type": "number"},
+                "kappa_u": {"type": "number"}, "kappa_max": {"type": "number"},
+                "rho": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1}
+              }
+            }
+          }
+        },
+        "action_window": {
+          "type": "object",
+          "required": ["hours", "z_fixed"],
+          "additionalProperties": false,
+          "properties": {
+            "hours": {"type": "array", "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+            "z_fixed": {"type": "boolean", "description": "true => binaries fixed => Layer A is a pure LP (toy instance)"},
+            "source_text": {"type": "string"}
+          }
+        },
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "hosts": {
+      "type": "object",
+      "description": "Layer B inventory — synthetic, owner: James (joint spec Q2). Coupling: sum_i h_{i,pow}*rated_power_kw ~= baseline_it_load_kw[0].",
+      "required": ["resources", "inventory", "initial_utilization", "provenance"],
+      "additionalProperties": false,
+      "properties": {
+        "resources": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "default": ["cpu", "mem", "power", "storage"]
+        },
+        "inventory": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["host_id", "rated_power_kw", "rated"],
+            "additionalProperties": false,
+            "properties": {
+              "host_id": {"type": "string"},
+              "rated_power_kw": {"type": "number", "exclusiveMinimum": 0, "description": "P_i^rated"},
+              "rated": {
+                "type": "object",
+                "additionalProperties": {"type": "number", "exclusiveMinimum": 0},
+                "description": "capacity per resource axis, keyed by hosts.resources entries"
+              }
+            }
+          }
+        },
+        "initial_utilization": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {"type": "number", "minimum": 0, "maximum": 1}
+          },
+          "description": "h_{i,j} in [0,1], shape [N][M] (checked by validate.py)"
+        },
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "arrivals": {
+      "type": "object",
+      "description": "Task arrival process for Q_t — owner: James (joint spec Q3). Week 5 stress tests vary only this block.",
+      "required": ["family", "provenance"],
+      "additionalProperties": false,
+      "properties": {
+        "family": {"enum": ["none", "poisson", "trace"]},
+        "rate_per_hour": {
+          "oneOf": [
+            {"type": "number", "minimum": 0},
+            {"type": "array", "items": {"type": "number", "minimum": 0}}
+          ]
+        },
+        "demand": {
+          "type": "object",
+          "description": "distribution of delta_k per resource axis: {family, params} — James to specify",
+          "additionalProperties": true
+        },
+        "trace_path": {"type": "string"},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"family": {"const": "poisson"}}},
+          "then": {"required": ["rate_per_hour", "demand"]}
+        },
+        {
+          "if": {"properties": {"family": {"const": "trace"}}},
+          "then": {"required": ["trace_path"]}
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "profile": {
+      "type": "array",
+      "items": {"type": "number", "minimum": 0},
+      "minItems": 1,
+      "description": "length must equal meta.T (checked by validate.py)"
+    },
+    "lever": {
+      "type": "object",
+      "required": ["min", "max", "delta_max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": {"type": "number"},
+        "max": {"type": "number"},
+        "delta_max": {"type": "number", "exclusiveMinimum": 0, "description": "per-step move limit Delta^max"},
+        "ref": {"type": "number", "description": "reference point (e.g. c_ref) if the surrogate needs one"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["tag"],
+      "additionalProperties": false,
+      "properties": {
+        "tag": {"enum": ["sourced", "approximated", "mixed"]},
+        "source_text": {"type": "string", "description": "original free-text constraint(s), if hand-parsed"},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}
