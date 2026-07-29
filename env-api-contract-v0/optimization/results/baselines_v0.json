@@ -1,0 +1,250 @@
+{
+  "lambda_vector": [
+    1.0,
+    0.01,
+    0.01,
+    0.01
+  ],
+  "results": [
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006046380252848657,
+      "f1_recovery_kwh": 36.07802540311759,
+      "f2_cost_usd": 735.7307698257109,
+      "f3_co2_kg": 3549.900964409054,
+      "f4_risk": 168.95006924097277,
+      "reward_total": -8.467792631639794,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.00588369759669918,
+      "f1_recovery_kwh": 35.1073175157924,
+      "f2_cost_usd": 732.5230780095158,
+      "f3_co2_kg": 3534.4238513959117,
+      "f4_risk": 147.62556841780997,
+      "reward_total": -9.038407462439968,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0054923933368781035,
+      "f1_recovery_kwh": 32.77245195395122,
+      "f2_cost_usd": 730.0532901593153,
+      "f3_co2_kg": 3522.5071250186943,
+      "f4_risk": 159.38463029938933,
+      "reward_total": -11.346998500822789,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006355587433148306,
+      "f1_recovery_kwh": 37.92302754310396,
+      "f2_cost_usd": 731.6069388484393,
+      "f3_co2_kg": 3530.0034799437217,
+      "f4_risk": 188.73124345866907,
+      "reward_total": -6.580389079404325,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.005982903346282273,
+      "f1_recovery_kwh": 35.69926631886477,
+      "f2_cost_usd": 727.4895677034098,
+      "f3_co2_kg": 3510.1371641689516,
+      "f4_risk": 147.3528238376055,
+      "reward_total": -8.150529238234904,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006213832217719948,
+      "f1_recovery_kwh": 37.0771911832688,
+      "f2_cost_usd": 726.9070059003158,
+      "f3_co2_kg": 3507.3263034690235,
+      "f4_risk": 132.89008226437883,
+      "reward_total": -6.594042733068374,
+      "steps": 24,
+      "violations": []
+    }
+  ]
+}
