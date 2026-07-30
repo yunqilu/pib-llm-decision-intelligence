@@ -1,0 +1,410 @@
+{
+  "lambda_vector": [
+    1.0,
+    0.01,
+    0.01,
+    0.01
+  ],
+  "results": [
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_toy",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.0,
+      "f1_recovery_kwh": 0.0,
+      "f2_cost_usd": 663.504,
+      "f3_co2_kg": 3201.406800000001,
+      "f4_risk": 0.0,
+      "reward_total": -38.649108000000005,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006079608598918627,
+      "f1_recovery_kwh": 36.276294956715574,
+      "f2_cost_usd": 735.0346494140742,
+      "f3_co2_kg": 3546.5421834229096,
+      "f4_risk": 153.37096643516375,
+      "reward_total": -8.073183036005908,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.005814147322149873,
+      "f1_recovery_kwh": 34.69231937358963,
+      "f2_cost_usd": 732.8218198504733,
+      "f3_co2_kg": 3535.8652807785306,
+      "f4_risk": 165.50215002994725,
+      "reward_total": -9.6495731329999,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006051769738834017,
+      "f1_recovery_kwh": 36.11018381925392,
+      "f2_cost_usd": 734.6019448610075,
+      "f3_co2_kg": 3544.454383954358,
+      "f4_risk": 162.9163788459489,
+      "reward_total": -8.309543257359246,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.005263160319716834,
+      "f1_recovery_kwh": 31.40464604851198,
+      "f2_cost_usd": 725.247436290802,
+      "f3_co2_kg": 3499.3188801031215,
+      "f4_risk": 144.85719278649563,
+      "reward_total": -12.289589043292198,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "random",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.005470837830255276,
+      "f1_recovery_kwh": 32.6438328325936,
+      "f2_cost_usd": 726.3933671833298,
+      "f3_co2_kg": 3504.847996659569,
+      "f4_risk": 150.5653143223866,
+      "reward_total": -11.174233949059234,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006165188013452295,
+      "f1_recovery_kwh": 36.78693705370823,
+      "f2_cost_usd": 726.0367935653385,
+      "f3_co2_kg": 3503.1275289527603,
+      "f4_risk": 150.2313983342221,
+      "reward_total": -7.007020154814972,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006249461802292531,
+      "f1_recovery_kwh": 37.28978863886326,
+      "f2_cost_usd": 728.2770135972297,
+      "f3_co2_kg": 3513.936590606632,
+      "f4_risk": 156.67142713505945,
+      "reward_total": -6.699061674525963,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006121566807056156,
+      "f1_recovery_kwh": 36.52665454968724,
+      "f2_cost_usd": 727.8506853057639,
+      "f3_co2_kg": 3511.8795566003105,
+      "f4_risk": 162.68506300724638,
+      "reward_total": -7.497498499445985,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006354208997100904,
+      "f1_recovery_kwh": 37.91480258062144,
+      "f2_cost_usd": 731.4912499753194,
+      "f3_co2_kg": 3529.445281130916,
+      "f4_risk": 169.02661390982485,
+      "reward_total": -6.384828869539137,
+      "steps": 24,
+      "violations": []
+    },
+    {
+      "scenario_id": "alcf_stochastic",
+      "policy_name": "greedy",
+      "lambda_vector": [
+        1.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "schema_version": "v0.2",
+      "D_kwh": 5966.88,
+      "recovery_pct": 0.006254094474059249,
+      "f1_recovery_kwh": 37.317431235374656,
+      "f2_cost_usd": 726.9675912936945,
+      "f3_co2_kg": 3507.6186279920767,
+      "f4_risk": 131.80749430898888,
+      "reward_total": -6.346505900572952,
+      "steps": 24,
+      "violations": []
+    }
+  ]
+}

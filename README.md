@@ -28,5 +28,15 @@ Core Vault / BioCore engine. Research/prototyping only, against PhysaFlow's
 standard mock interfaces. See the Role 16 brief.
 
 ## Status
-Layout scaffolded — problem spec, data schema, and env implementation are
-still DRAFT pending joint sign-off between Yunqi and James.
+`env/simulator.py` (the shared env, v0.2 data contract), `shared/benchmark_harness.py`,
+and two Layer B dispatch baselines (`optimization/baselines/policies.py`:
+random, greedy) are implemented and tested (`tests/`, `pytest tests/ -v`,
+30 tests). All six `docs/problem_spec.md` §4 constraints (power cap, thermal
+redline, SLA floor, action windows, N+1 reserve, ramp) are enforced per the
+joint spec's masking/soft split — see
+`docs/decisions/2026-07-28-env-api-contract-v0.md` for the full contract
+decision record and the 2026-07-29 spec-conformance follow-up.
+`rl/gym_wrapper.py` adapts the env to fixed-shape Gym spaces for RL
+training. Pending: Yunqi's review of the env implementation against her
+MILP-side formulation, and a real LP/MILP oracle solve to report baseline
+recovery % as % of oracle (data_schema.md §5).
