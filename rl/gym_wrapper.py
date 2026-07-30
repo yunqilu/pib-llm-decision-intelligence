@@ -79,6 +79,14 @@ class GymDispatchEnv(_Base):
     # ------------------------------------------------------------------ #
 
     def reset(self, seed: Optional[int] = None, options: Optional[dict] = None):
+        if seed is not None:
+            # gymnasium.Env.reset(seed=...) convention: reseed this episode's
+            # RNG. Previously silently ignored here -- important for
+            # experiment reproducibility (shared/experiment_tracking.py),
+            # since arrivals are stochastic and otherwise every reset() just
+            # continues drawing from whatever RNG state env/simulator.py's
+            # __init__ started with.
+            self._env._rng = np.random.default_rng(seed)
         obs, info = self._env.reset()
         return self._encode_obs(obs), self._encode_info(info)
 

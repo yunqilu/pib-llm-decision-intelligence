@@ -6,8 +6,9 @@ jsonschema>=4.0
 pyomo>=6.0
 highspy>=1.5
 
-# rl/ track (optional -- only needed for rl/gym_wrapper.py)
+# rl/ track (optional -- only needed for rl/gym_wrapper.py and rl/agents/)
 gymnasium>=0.29
+torch>=2.0
 
 # dev
 pytest>=7.0
