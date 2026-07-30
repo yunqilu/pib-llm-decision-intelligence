@@ -87,6 +87,82 @@ def test_toy_instance_certainty_equivalence_zero_violations_zero_recovery(alcf_t
     assert info["recovery_pct"] == 0.0
 
 
+def test_curtailment_reduces_facility_power(alcf_toy_config):
+    """problem_spec.md §3: L_t = Lbar_t*(q_t/100) - d_t. Submitting curtail_kw
+    should actually lower F_t, not be a no-op (regression test for the gap
+    flagged in review: curtail_kw/deferrable_share_pct were previously
+    accepted but never wired into the physics)."""
+    cfg = build_scenario_config("alcf", scenario_id="curtail_regress", arrivals_enabled=False, seed=1)
+
+    def run(curtail_kw):
+        env = DecisionIntelligenceEnv(cfg)
+        obs, info = env.reset()
+        action = {"facility": {"admit_kw": 0.0, "curtail_kw": curtail_kw, **obs["facility"]["levers"]}}
+        obs2, *_ = env.step(action)
+        return obs2["facility"]["facility_power_kw"]
+
+    assert run(50.0) < run(0.0)
+
+
+def test_sla_floor_caps_curtailment():
+    """problem_spec.md §4.3: Lbar_t*(q_t/100) - d_t >= Lbar^SLA_t. Requesting
+    curtailment far beyond what the SLA floor allows should be silently
+    capped, not applied in full."""
+    cfg = build_scenario_config("alcf", scenario_id="sla_regress", arrivals_enabled=False, seed=1)
+    env = DecisionIntelligenceEnv(cfg)
+    obs, info = env.reset()
+    action = {"facility": {"admit_kw": 0.0, "curtail_kw": 999.0, **obs["facility"]["levers"]}}
+    obs2, *_ = env.step(action)
+    assert obs2["facility"]["it_load_kw"] == pytest.approx(cfg["facility"]["sla_floor_kw"][0])
+    assert obs2["facility"]["it_load_kw"] >= cfg["facility"]["sla_floor_kw"][0] - 1e-6
+
+
+def test_n_plus_one_clamps_levers_when_binding():
+    """problem_spec.md §4.5: kappa_t <= rho*kappa_max. With default surrogate
+    coefficients this basically never binds (max reachable kappa_t < the
+    default cap) -- tighten kappa_max/rho here so the clamp is genuinely
+    exercised, not vacuously satisfied."""
+    cfg = build_scenario_config("alcf", scenario_id="n1_regress", arrivals_enabled=False, seed=1)
+    cfg["facility"]["surrogates"]["cooling_effort"]["kappa_max"] = 1.5
+    cfg["facility"]["surrogates"]["cooling_effort"]["rho"] = 0.5  # cap = 0.75
+    env = DecisionIntelligenceEnv(cfg)
+    obs, info = env.reset()
+    action = {"facility": {
+        "admit_kw": 0.0, "curtail_kw": 0.0,
+        "chiller_setpoint_c": cfg["facility"]["levers"]["c"]["min"],  # pushes kappa_t up
+        "pump_duty_pct": cfg["facility"]["levers"]["u"]["max"],       # pushes kappa_t up
+        "zone_setpoint_c": obs["facility"]["levers"]["zone_setpoint_c"],
+        "deferrable_share_pct": obs["facility"]["levers"]["deferrable_share_pct"],
+    }}
+    obs2, *_ = env.step(action)
+    cap = cfg["facility"]["surrogates"]["cooling_effort"]["rho"] * cfg["facility"]["surrogates"]["cooling_effort"]["kappa_max"]
+    assert obs2["facility"]["cooling_effort"] <= cap + 1e-6
+    # confirm the clamp actually moved a lever, rather than the request already fitting
+    assert obs2["facility"]["levers"]["pump_duty_pct"] < cfg["facility"]["levers"]["u"]["max"]
+
+
+def test_thermal_redline_masks_placements_not_just_logs_violation():
+    """problem_spec.md §4.2, joint spec §3.2: thermal should be masked the
+    same way as the power cap, not caught after the fact. Set t_max just
+    above the current inlet temp so it's genuinely binding, then confirm no
+    placements are offered and no violation is logged (masked, not
+    penalized)."""
+    cfg = build_scenario_config("alcf", scenario_id="thermal_regress", arrivals_enabled=True, seed=4)
+    probe_env = DecisionIntelligenceEnv(cfg)
+    probe_obs, _ = probe_env.reset()
+    cfg["facility"]["t_max_inlet_c"] = probe_obs["facility"]["inlet_temp_c"] + 0.05
+
+    env = DecisionIntelligenceEnv(cfg)
+    obs, info = env.reset()
+    action = {"facility": {"admit_kw": 1.0e6, "curtail_kw": 0.0, **obs["facility"]["levers"]}}
+    obs2, reward, terminated, truncated, info2 = env.step(action)
+
+    mask = info2["action_mask"]
+    assert all(len(allowed) == 0 for allowed in mask["placement_allowed"].values())
+    assert info2["violations"] == []
+    assert obs2["facility"]["inlet_temp_c"] <= cfg["facility"]["t_max_inlet_c"] + 1e-6
+
+
 def test_step_before_reset_raises(alcf_toy_config):
     env = DecisionIntelligenceEnv(alcf_toy_config)
     with pytest.raises(SimulatorError):

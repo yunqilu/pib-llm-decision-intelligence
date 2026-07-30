@@ -70,7 +70,40 @@ translation bug is local to that one file and never touches
   whoever is evaluating a policy, so the `lambda` used is always visible in
   that caller's code rather than buried inside the env.
 
-## Open follow-ups
+## Follow-up: spec-conformance pass (2026-07-29)
+
+A review against `docs/problem_spec.md` found that v0 accepted but silently
+dropped several fields/constraints. Fixed:
+
+- `curtail_kw` and `deferrable_share_pct` (`d_t`, `q_t`) are now wired into
+  `L_t` per §3: `L_t = L_host*(q_t/100) - d_t`, where `L_host` is the
+  coupling-identity quantity from host dispatch. Previously these fields
+  were schema-accepted, clamped into `self.levers`, and never used again.
+- **SLA floor (§4.3)** is now enforced: `_effective_load()` caps how much
+  `curtail_kw` can actually reduce `L_t` so it never dips below
+  `sla_floor_kw[t]`. Previously `sla_floor_kw` was loaded and length-checked
+  at init and never referenced again.
+- **N+1 cooling reserve (§4.5)** is now enforced: `_enforce_n_plus_one()`
+  clamps `chiller_setpoint_c`/`pump_duty_pct` each step so `kappa_t <=
+  rho*kappa_max` always holds. Previously `kappa_max`/`rho` were never
+  referenced.
+- **Thermal redline (§4.2)** is now a real hard mask on `info["action_mask"]`
+  (checked per candidate placement, same mechanism as the power cap),
+  instead of only being checked after the fact and logged to `violations`.
+  This was the one genuine correctness gap relative to joint spec §3.2,
+  which says thermal should be masked like power cap, not caught post-hoc.
+
+Ramp limit (§4.6) remains deliberately unenforced as a hard constraint —
+that's correct per the joint spec's own cross-mapping table (§3.2), which
+marks ramp as soft and folds it into `f4_risk` via migration churn cost, not
+a mask.
+
+Verified with 4 new regression tests (`tests/test_simulator.py`): each fix
+is tested against a case constructed so the constraint is genuinely
+binding, not vacuously satisfied (e.g. the default surrogate coefficients
+never actually reach the N+1 cap, so that test tightens `kappa_max`/`rho`
+to force it). Full suite (30 tests) and the baseline comparison both still
+pass with zero violations.
 
 - `rl/gym_wrapper.py`'s `max_queue_len` padding needs a real max-arrival-rate
   analysis once Week 5 stress tests (arrivals family/params) are set; a
