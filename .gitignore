@@ -7,3 +7,7 @@ venv/
 .DS_Store
 results/*.csv
 results/*.png
+# timestamped experiment run directories (shared/experiment_tracking.py):
+# model checkpoints + full per-episode logs are local artifacts, not source.
+rl/results/2*/
+optimization/results/2*/
